@@ -145,8 +145,8 @@ public class AndroidFileHandler
 	public File newFile(File parent, String... subDirs) {
 		fixupFileName(subDirs);
 
-		if (!(parent instanceof AndroidFile)
-				|| VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
+		if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP
+				|| !(parent instanceof AndroidFile)) {
 			return super.newFile(parent, subDirs);
 		}
 		if (subDirs == null || subDirs.length == 0) {
@@ -300,8 +300,8 @@ public class AndroidFileHandler
 	@Override
 	public FileOutputStream newFileOutputStream(File file, boolean append)
 			throws FileNotFoundException {
-		if (!(file instanceof AndroidFile)
-				|| VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
+		if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP
+				|| !(file instanceof AndroidFile)) {
 			return super.newFileOutputStream(file, append);
 		}
 		AndroidFile androidFile = (AndroidFile) file;
@@ -341,8 +341,8 @@ public class AndroidFileHandler
 	@Override
 	public FileInputStream newFileInputStream(File from_file)
 			throws FileNotFoundException {
-		if (!(from_file instanceof AndroidFile)
-				|| VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
+		if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP
+				|| !(from_file instanceof AndroidFile)) {
 			return super.newFileInputStream(from_file);
 		}
 
@@ -375,7 +375,8 @@ public class AndroidFileHandler
 		//       Surely there's better code
 		String parentPath = getCanonicalPathSafe(parentDir);
 
-		if (parentDir instanceof AndroidFile) {
+		if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP
+				&& parentDir instanceof AndroidFile) {
 			if (!parentPath.endsWith("%2F")) {
 
 				parentPath += "%2F";
@@ -393,7 +394,8 @@ public class AndroidFileHandler
 			// need to replace %2F with / to allow caller to do something like:
 			// FileUtil.newFile(somePath, getRelativePath(someParent, someChild);
 			String relPath = file_path.substring(parentPath.length());
-			if (file instanceof AndroidFile) {
+			if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP
+					&& file instanceof AndroidFile) {
 				relPath = Uri.decode(relPath);
 			}
 			return relPath;
@@ -404,7 +406,8 @@ public class AndroidFileHandler
 
 	@Override
 	public File getCanonicalFileSafe(File file) {
-		if (file instanceof AndroidFile) {
+		if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP
+				&& file instanceof AndroidFile) {
 			return file;
 		}
 
@@ -415,7 +418,8 @@ public class AndroidFileHandler
 	@Override
 	public String getCanonicalPathSafe(File file) {
 		try {
-			if (file instanceof AndroidFile) {
+			if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP
+					&& file instanceof AndroidFile) {
 				return file.getCanonicalPath();
 			}
 		} catch (Throwable e) {
@@ -428,12 +432,11 @@ public class AndroidFileHandler
 
 	@Override
 	public boolean isAncestorOf(File _parent, File _child) {
-		if (_parent instanceof AndroidFile && _child instanceof AndroidFile) {
+		if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP
+				&& _parent instanceof AndroidFile && _child instanceof AndroidFile) {
 			boolean isAncenstor = getRelativePath(_parent, _child) != null;
-			if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-				((AndroidFile) _child).log(
-						"isAncestor=" + isAncenstor + " of " + _parent);
-			}
+			((AndroidFile) _child).log(
+					"isAncestor=" + isAncenstor + " of " + _parent);
 			return isAncenstor;
 		}
 

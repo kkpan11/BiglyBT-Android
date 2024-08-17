@@ -19,7 +19,6 @@ package com.biglybt.android.client.sidelist;
 import android.animation.Animator;
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;

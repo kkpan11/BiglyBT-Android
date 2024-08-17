@@ -16,15 +16,12 @@
 
 package com.biglybt.android.client.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.biglybt.android.client.AndroidUtils;
-import com.biglybt.android.client.R;
 import com.biglybt.android.client.dialog.DialogFragmentAbstractLocationPicker.LocationPickerListener;
 import com.biglybt.android.client.dialog.DialogFragmentNumberPicker.NumberPickerDialogListener;
 import com.biglybt.android.client.fragment.SettingsFragmentLB;

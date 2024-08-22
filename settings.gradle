@@ -21,3 +21,5 @@ project(':BiglyBT-plugin-xmwebui').projectDir = new File(rootDir, 'modules-with-
 
 include 'BiglyBT-plugin-azutp'
 project(':BiglyBT-plugin-azutp').projectDir = new File(rootDir, 'modules-with-root-src/azutp')
+
+include ':ico4a'

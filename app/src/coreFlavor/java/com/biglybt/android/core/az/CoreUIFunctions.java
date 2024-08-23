@@ -89,6 +89,17 @@ class CoreUIFunctions
 	}
 
 	@Override
+	public Object pushStatusText(String message) {
+		loge("pushStatusText " + message);
+		return null;
+	}
+
+	@Override
+	public void popStatusText(Object pushed, int reason, String message) {
+		loge("popStatusText:pushed=" + pushed + ";reason=" + reason + ";msg=" + message);
+	}
+
+	@Override
 	public boolean dispose(boolean for_restart) {
 		loge("dispose");
 
